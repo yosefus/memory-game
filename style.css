@@ -1,0 +1,56 @@
+h1,
+h2,
+button {
+   text-transform: capitalize;
+}
+
+.t {
+   max-width: 800px;
+   margin: 0 auto;
+}
+
+.card {
+   aspect-ratio: 2/3;
+   font-size: 5rem;
+   font-weight: 700;
+   cursor: pointer;
+   transition: all .2s ease-in-out;
+   background-image: url(img/heart-1993638_640.png);
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   text-transform: uppercase;
+   overflow: hidden;
+}
+
+.gone {
+   opacity: 0.1;
+   pointer-events: none;
+   cursor: not-allowed;
+}
+
+.card:hover {
+   -webkit-box-shadow: 0px 3px 42px 5px rgba(0, 0, 0, 0.81);
+   box-shadow: 0px 3px 42px 5px rgba(0, 0, 0, 0.81);
+}
+
+.openBox {
+   cursor: pointer;
+}
+
+.popUp {
+   position: fixed;
+   right: 0;
+   left: 0;
+   top: 0;
+   bottom: 0;
+   width: 100vw;
+   color: #fff;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #000000c2;
+   font-size: 6rem;
+   text-transform: capitalize;
+   font-weight: 700;
+}
