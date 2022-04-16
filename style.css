@@ -1,6 +1,7 @@
 h1,
 h2,
-button {
+button,
+p {
    text-transform: capitalize;
 }
 
@@ -11,7 +12,7 @@ button {
 
 .card {
    aspect-ratio: 2/3;
-   font-size: 5rem;
+   font-size: 4rem;
    font-weight: 700;
    cursor: pointer;
    transition: all .2s ease-in-out;
@@ -20,6 +21,20 @@ button {
    background-repeat: no-repeat;
    background-position: center;
    text-transform: uppercase;
+   overflow: hidden;
+}
+
+@media screen and (max-width: 578px) {
+   .card {
+      font-size: 3rem;
+   }
+}
+
+#player2Box {
+   text-align: end;
+}
+
+.player {
    overflow: hidden;
 }
 
