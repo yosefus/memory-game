@@ -42,7 +42,7 @@ function onClickCard(e) {
 }
 
 function reset() {
-   currBoardArr = boardArr.concat(boardArr)
+   currBoardArr = boardArr.slice(0, cardsNum).concat(boardArr.slice(0, cardsNum))
    currPlay = []
    Player1.score = 0
    Player2.score = 0
