@@ -3,7 +3,9 @@ let root = document.querySelector("#root"),
    p1 = document.querySelector("#player1Box"),
    p2 = document.querySelector("#player2Box"),
    btnBox = document.getElementById("btn-box"),
-   boardArr = ["🐵", "🐶", "🐺", "🐱", "🦁", "🐯", "🦒", "🦊", "🐻", "🐰", "🐹", "🐭", "🐗", "🐷", "🐮", "🦝", "🐨", "🐼", "🐸", "🦓", "🐴", "🦄", "🐔", "🐲"],
+   boardArr = ["🐵", "🐶", "🐺", "🐱", "🦁", "🐯", "🦒",
+      "🦊", "🐻", "🐰", "🐹", "🐭", "🐗", "🐷", "🐮", "🦝",
+      "🐨", "🐼", "🐸", "🦓", "🐴", "🦄", "🐔", "🐲"],
    cardsNum = boardArr.length - 1,
    currBoardArr = boardArr.slice(0, cardsNum).concat(boardArr.slice(0, cardsNum)),
    Player1 = { name: "", score: 0, totalScore: 0 },
@@ -13,7 +15,7 @@ let root = document.querySelector("#root"),
    currPlayer = Player1,
    rollAnimateArr = ['animate__rotateInDownLeft', "animate__rotateInDownRight", "animate__rotateInUpLeft", "animate__rotateInUpRight"]
 
-
+// the main function on click card
 function onClickCard(e) {
    let pos = Number(e.target.id.replace("b", ""))
 
@@ -28,19 +30,21 @@ function onClickCard(e) {
    if (currPlay.length == 2) {
       middlePlay = true
       checkWins()
-
-      setTimeout(() => {
-         document.getElementById(`b${currPlay[0]}`).innerText = ""
-         document.getElementById(`b${currPlay[1]}`).innerText = ""
-         currPlay = []
-         currPlayer = currPlayer == Player1 ? Player2 : Player1
-         middlePlay = false
-      }, 3000);
-
+      setTimeout(resetPlay, 3000);
    }
+
    if (!currBoardArr.find((v) => v != "?")) printWin()
 }
 
+// reset the last move
+function resetPlay() {
+   document.getElementById(`b${currPlay[0]}`).innerText = ""
+   document.getElementById(`b${currPlay[1]}`).innerText = ""
+   currPlay = []
+   middlePlay = false
+}
+
+// reset the game
 function reset() {
    currBoardArr = boardArr.slice(0, cardsNum).concat(boardArr.slice(0, cardsNum))
    currPlay = []
@@ -50,6 +54,7 @@ function reset() {
    firstPrint()
 }
 
+// in the end of the game print the winner
 function printWin() {
    let winner = {}
 
@@ -65,11 +70,13 @@ function printWin() {
    setTimeout(reset, 4000);
 }
 
+// remove old animation from elements
 function deleteAnimate(element) {
    element.classList.remove(...rollAnimateArr, "animate__flip")
    return element
 }
 
+// check if the player filp two cards that is the same
 function checkWins() {
    if (currBoardArr[currPlay[0]] == currBoardArr[currPlay[1]]) {
       Array.from(Array(2)).forEach((x, i) => {
@@ -81,16 +88,20 @@ function checkWins() {
       })
 
       currPlayer.score++
-      printPlayers()
+   } else {
+      currPlayer = currPlayer == Player1 ? Player2 : Player1
    }
+   printPlayers()
 }
 
+// reset the page
 function cleanPage() {
    root.innerHTML = ""
    note.innerHTML = ""
    note.className = ""
 }
 
+// print the page
 function print(first) {
    middlePlay = false
    cleanPage()
@@ -110,27 +121,35 @@ function print(first) {
    })
 }
 
+// print the players with they score
 function printPlayers() {
    const prop = { Player1, Player2, p1, p2 }
 
    Array.from(Array(2)).forEach((x, i) => {
       prop[`p${i + 1}`].innerHTML = ""
+
       const h2 = document.createElement("h2")
+      h2.className = (`${currPlayer == prop[`Player${i + 1}`] ? "text-success fw-bold" : "text-muted"}`)
       h2.innerText = prop[`Player${i + 1}`].name
+
       const p = document.createElement("p")
       p.innerText = "score: " + prop[`Player${i + 1}`].score
+
       const p2 = document.createElement("p")
       p2.innerText = "total score: " + prop[`Player${i + 1}`].totalScore
+
       prop[`p${i + 1}`].append(h2, p, p2)
    })
 }
 
+// suffle the cards at the first run
 function firstPrint() {
    currBoardArr.sort(() => Math.random() - 0.5)
    addButtons()
    print(true)
 }
 
+// add the btns
 function addButtons() {
    const btn = document.createElement("button")
    btn.innerText = "reset"
@@ -140,6 +159,7 @@ function addButtons() {
    btnBox.appendChild(btn)
 }
 
+// on submit the names of the players
 function submitNames(e) {
    e.preventDefault()
    Player1.name = document.getElementById(`input0`).value
@@ -151,6 +171,7 @@ function submitNames(e) {
    firstPrint()
 }
 
+// print the form to get the players name
 function formPrint() {
    const form = document.createElement("form")
    form.className = "p-0 p-md-4 d-flex gap-4 flex-column w-75 m-auto mt-5"
