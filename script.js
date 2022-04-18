@@ -129,7 +129,6 @@ function printPlayers() {
       prop[`p${i + 1}`].innerHTML = ""
 
       const h2 = document.createElement("h2")
-      h2.className = (`${currPlayer == prop[`Player${i + 1}`] ? "text-success fw-bold" : "text-muted"}`)
       h2.innerText = prop[`Player${i + 1}`].name
 
       const p = document.createElement("p")
@@ -137,6 +136,10 @@ function printPlayers() {
 
       const p2 = document.createElement("p")
       p2.innerText = "total score: " + prop[`Player${i + 1}`].totalScore
+
+      currPlayer !== prop[`Player${i + 1}`] ?
+         prop[`p${i + 1}`].classList.add("text-muted") :
+         prop[`p${i + 1}`].classList.remove("text-muted")
 
       prop[`p${i + 1}`].append(h2, p, p2)
    })
@@ -212,4 +215,3 @@ function formPrint() {
 
 
 window.onload = formPrint
-// const shuffle = (arr) => arr.sort(() => Math.random() - 0.5)
